@@ -1,3 +1,5 @@
+<?php  require_once('connect.php');?>
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -40,7 +42,12 @@
                         </div>
                     </div>
                 </div>
+                <!-- Begin test -->
+                <!-- <input type="text" id="datepicker"> -->
+                <input type="text" id="selectedDate">
 
+
+                <!-- End test -->
 
                 <div class="card mb-4">
                     <div class="card-header">Поиск</div>
@@ -106,6 +113,32 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/scripts.js"></script>
+    <script>
+    // $(function() {
+
+    $(function() {
+        $("#datepicker").datepicker();
+    });
+
+    $("#datepicker").datepicker({
+        onSelect: function() {
+            var jsDate = $('#datepicker').datepicker('getDate');
+
+            // jsDate instanceof Date; // -> true
+            // jsDate.getDate();
+            // jsDate.getMonth();
+            // jsDate.getFullYear();
+            let jDate = new Date(jsDate);
+            let day = jDate.getDate();
+            let month = jDate.getMonth();
+            let year = jDate.getFullYear();
+            let eventDate = year + '-' + month + '-' + day;
+            console.log(eventDate);
+            $("#selectedDate").val(eventDate);
+        }
+    });
+    // });
+    </script>
 </body>
 
 </html>
