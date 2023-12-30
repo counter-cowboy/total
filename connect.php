@@ -5,17 +5,7 @@ $dbname="total";
 $user="user";
 $password="poiuy";
 
+$mysqli=mysqli_connect($host, $user, $password, $dbname);
 
-
-
-
-try 
-{
-    $mysqli=mysqli_connect($host, $user, $password, $dbname);
-}
-catch(mysqli_connect_ $e)
-{
-
-}
 
 ?>
