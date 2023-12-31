@@ -45,6 +45,7 @@
                 <!-- Begin test -->
                 <!-- <input type="text" id="datepicker"> -->
                 <input type="text" id="selectedDate">
+                <input type="text" id="selectedDate1">
 
 
                 <!-- End test -->
@@ -112,7 +113,7 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.js"></script>
-    <script src="js/scripts.js"></script>
+    <script src="scripts.js"></script>
     <script>
     </script>
 </body>
