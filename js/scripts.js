@@ -53,6 +53,8 @@ jQuery(document).ready(function () {
 
   jQuery.datepicker.setDefaults($.datepicker.regional["ru"]);
 
+  let globArray = [];
+
   $("#datepicker").datepicker({
     onSelect: function () {
       var jsDate = $("#datepicker").datepicker("getDate");
@@ -73,14 +75,34 @@ jQuery(document).ready(function () {
         data: { eventdate: eventDate },
         success: function (response) {
           response = JSON.parse(response);
-          console.log(response);
+          globArray = response;
+          console.log(response + " date");
           $("#selectedDate1").val(response);
           //response.forEach((o) => $("#array").html(o));
-          for (const key in response) {
-            $("#array").append(key + ":" + response[key] + "<br>");
+
+          for (let i = 0; i < globArray.length; i++) {
+            let innerArrayLength = globArray[i].length;
+            for (let j = 0; j < innerArrayLength; j++) {
+              $("#array").append(j + " : " + globArray[i][j] + "<br>");
+            }
           }
         },
       });
+      for (let i = 0; i < globArray.length; i++) {
+        let innerArrayLength = globArray[i].length;
+        jQuery(".data-row")
+          .clone()
+          .appendTo("#dataHolder")
+          .removeClass("data-row");
+        for (let j = 0; j < innerArrayLength; j++) {
+          $("#id").text(globArray[i]);
+          $("#datas").html(globArray[i][j]);
+          $("#events").html(globArray[i][j]);
+          $("#person").html(globArray[i][j]);
+          $("#thing").text(globArray[i][j]);
+          $("#locat").text(globArray[i][j]);
+        }
+      }
     },
   });
 

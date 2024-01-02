@@ -60,7 +60,9 @@
                         </div>
                     </div>
                 </div>
-
+                <div>
+                    <pre id='array'></pre>
+                </div>
 
             </div>
 
@@ -70,23 +72,33 @@
                 <!-- data unit -->
                 <div id="totalHolder">
                     <div class="row">
+
+                        <div hidden class="col border text-center">ID</div>
+                        <div hidden class="col border text-center">Datas</div>
                         <div class="col border text-center">Событие</div>
                         <div class="col border text-center">Персона</div>
                         <div class="col border text-center">Предмет</div>
                         <div class="col border text-center">Территория</div>
+
                         <!--<div class="col border text-center">Описание</div>
                                 <div class="col border text-center">Картинки</div>
                                 <div class="col border text-center">Книга</div>-->
                     </div>
-
                     <div class="row data-row">
-                        <div class="col border p-2 text-center"><button class="btn btn-primary">Изменить</button></div>
-                        <div class="col border p-2 text-center"><button class="btn btn-primary">Изменить</button></div>
-                        <div class="col border p-2 text-center"><button class="btn btn-primary">Изменить</button></div>
-                        <div class="col border p-2 text-center"><button class="btn btn-primary">Изменить</button></div>
-                        <!--<div class="col border p-2 text-center"><button class="btn btn-primary">Изменить</button></div>
-                                <div class="col border p-2 text-center"><button class="btn btn-primary">Изменить</button></div>
-                                <div class="col border p-2 text-center"><button class="btn btn-primary">Изменить</button></div>-->
+                        <div id='id' hidden class="col border  text-center">1</div>
+                        <div id='datas' hidden class="col border  text-center">2</div>
+                        <div id='events'  class="col border  text-center">3</div>
+                        <div id='person' class="col border  text-center">fdghdf</div>
+                        <div id='thing' class="col border text-center">5</div>
+                        <div id='locat' class="col border  text-center">6</div>
+                    </div>
+                    <div class="row data-row">
+                       <div hidden class="col border p-2 text-center"><a id='id-button' href=''><button class="btn btn-primary">Измsdffенить</button></a></div>
+                        <div hidden class="col border p-2 text-center"><a id='datas-button' href=''><button class="btn btn-primary">Изменить</button></a></div>
+                        <div class="col border p-2 text-center"><a id='events-button' href=''><button class="btn btn-primary">Изменить</button></a></div>
+                        <div class="col border p-2 text-center"><a id='person-button' href=''><button class="btn btn-primary">Изменить</button></a></div>
+                        <div class="col border p-2 text-center"><a id='thing-button' href=''><button class="btn btn-primary">Изменить</button></a></div>
+                        <div class="col border p-2 text-center"><a id='locat-button' href=''><button class="btn btn-primary">Изменить</button></a></div>
                     </div>
                     <span id="dataHolder"></span>
                 </div>
@@ -104,6 +116,10 @@
     </div>
 
 
+
+
+
+
     <footer class="py-5 bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">&copy; TotalRecall2023</p>
@@ -113,7 +129,7 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.js"></script>
-    <script src="scripts.js"></script>
+    <script src="js/scripts.js"></script>
     <script>
     </script>
 </body>
