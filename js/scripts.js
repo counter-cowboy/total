@@ -87,24 +87,67 @@ jQuery(document).ready(function () {
 
   function callingArray(globArray) {
     for (let i = 0; i < globArray.length; i++) {
-      $("#array").append(i + " : " + globArray[i] + "<br>");
-      $("#id").text(globArray[i][0]);
-      $("#datas").text(globArray[i][1]);
-      $("#events").text(globArray[i][2]);
-      $("#person").text(globArray[i][3]);
-      $("#thing").text(globArray[i][4]);
-      $("#locat").text(globArray[i][5]);
+      $("#totalHolder").append(`
+        <div class="row data-row">
+            <div id='id${i}' hidden class="col border  text-center">0</div>
+            <div id='datas${i}' hidden class="col border  text-center">1</div>
+            <div id='events${i}'  class="col border  text-center">${globArray[i][2]}</div>
+            <div id='person${i}' class="col border  text-center">${globArray[i][3]}</div>
+            <div id='thing${i}' class="col border text-center">${globArray[i][4]}</div>
+            <div id='locat${i}' class="col border  text-center">${globArray[i][5]}</div>
+        </div>
+        <div class="row data-row">
+            <div hidden class="col border p-2 text-center"><a id='id-button${i}' href=''><button class="btn btn-primary">Изменить</button></a></div>
+            <div hidden class="col border p-2 text-center"><a id='datas-button${i}' href=''><button class="btn btn-primary">Изменить</button></a></div>
+            <div class="col border p-2 text-center"><a id='events-button${i}' href=''><button class="btn btn-primary">Изменить</button></a></div>
+            <div class="col border p-2 text-center"><a id='person-button${i}' href=''><button class="btn btn-primary">Изменить</button></a></div>
+            <div class="col border p-2 text-center"><a id='thing-button${i}' href=''><button class="btn btn-primary">Изменить</button></a></div>
+            <div class="col border p-2 text-center"><a id='locat-button${i}' href=''><button class="btn btn-primary">Изменить</button></a></div>
+        </div>`);
 
-      $("#events-button")
-        .addClass(`events-button${i}3`)
-        .click(function (e) {
-          e.preventDefault();
-          $("#exampleFormControlTextarea1").text(globArray[i][2]);
-        });
+      $(`#events-button${i}`).click(function (e) {
+        e.preventDefault();
+        $("#exampleFormControlTextarea1").text(globArray[i][2]);
+        let textValEvent = $("#exampleFormControlTextarea1").val();
+        $("#saveChanges").attr(
+          "href",
+          `http://localhost:5501/total/update.php?id=${globArray[i][0]}&datas=${globArray[i][1]}&events=${textValEvent}&person=${globArray[i][3]}&thing=${globArray[i][4]}&locat=${globArray[i][5]}`
+        );
+      });
 
-      if (i === globArray.length - 1) break;
+      $(`#person-button${i}`).click(function (e) {
+        e.preventDefault();
+        $("#exampleFormControlTextarea1").text(globArray[i][3]);
+        let textValEvent = $("#exampleFormControlTextarea1").val();
+        $("#saveChanges").attr(
+          "href",
+          `http://localhost:5501/total/update.php?id=${globArray[i][0]}&datas=${globArray[i][1]}&events=${globArray[i][2]}&person=${textValEvent}&thing=${globArray[i][4]}&locat=${globArray[i][5]}`
+        );
+      });
 
-      jQuery(".data-row").clone().appendTo("#dataHolder");
+      $(`#thing-button${i}`).click(function (e) {
+        e.preventDefault();
+        $("#exampleFormControlTextarea1").text(globArray[i][4]);
+        let textValEvent = $("#exampleFormControlTextarea1").val();
+        $("#saveChanges").attr(
+          "href",
+          `http://localhost:5501/total/update.php?id=${globArray[i][0]}&datas=${globArray[i][1]}&events=${globArray[i][2]}&person=${globArray[i][3]}&thing=${textValEvent}&locat=${globArray[i][5]}`
+        );
+      });
+
+      $(`#locat-button${i}`).click(function (e) {
+        e.preventDefault();
+        // $("#exampleFormControlTextarea1").attr("placeholder", globArray[i][5]);
+        // let textValEvent = $("#exampleFormControlTextarea1").val();
+        $("#saveChanges").attr(
+          "href",
+          `http://localhost:5501/total/update.php?id=${globArray[i][0]}&datas=${
+            globArray[i][1]
+          }&events=${globArray[i][2]}&person=${globArray[i][3]}&thing=${
+            globArray[i][4]
+          }&locat=${$("#exampleFormControlTextarea1").val()}`
+        );
+      });
     }
   }
   jQuery("#addRow").click(function () {

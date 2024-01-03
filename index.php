@@ -84,22 +84,7 @@
                                 <div class="col border text-center">Картинки</div>
                                 <div class="col border text-center">Книга</div>-->
                     </div>
-                    <div class="row data-row">
-                        <div id='id' hidden class="col border  text-center">1</div>
-                        <div id='datas' hidden class="col border  text-center">2</div>
-                        <div id='events'  class="col border  text-center">3</div>
-                        <div id='person' class="col border  text-center">fdghdf</div>
-                        <div id='thing' class="col border text-center">5</div>
-                        <div id='locat' class="col border  text-center">6</div>
-                    </div>
-                    <div class="row data-row">
-                       <div hidden class="col border p-2 text-center"><a id='id-button' href=''><button class="btn btn-primary">Измsdffенить</button></a></div>
-                        <div hidden class="col border p-2 text-center"><a id='datas-button' href=''><button class="btn btn-primary">Изменить</button></a></div>
-                        <div class="col border p-2 text-center"><a id='events-button' href=''><button class="btn btn-primary">Изменить</button></a></div>
-                        <div class="col border p-2 text-center"><a id='person-button' href=''><button class="btn btn-primary">Изменить</button></a></div>
-                        <div class="col border p-2 text-center"><a id='thing-button' href=''><button class="btn btn-primary">Изменить</button></a></div>
-                        <div class="col border p-2 text-center"><a id='locat-button' href=''><button class="btn btn-primary">Изменить</button></a></div>
-                    </div>
+
                     <span id="dataHolder"></span>
                 </div>
                 <div class="text-center"><a href="#" id="addRow" class="my-2">Добавить событие</a></div>
@@ -107,7 +92,8 @@
 
                 <textarea class="form-control mt-5 mb-3" id="exampleFormControlTextarea1" rows="10"></textarea>
                 <div class="float-right">
-                    <a id="saveChanges" href=""> <button class="btn btn-primary mb-4" style="float: right;">Записать изменения</button></a>
+                    <a id="saveChanges" href=""> <button class="btn btn-primary mb-4" style="float: right;">Записать
+                            изменения</button></a>
                 </div>
 
 
