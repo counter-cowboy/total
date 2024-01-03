@@ -107,7 +107,7 @@
 
                 <textarea class="form-control mt-5 mb-3" id="exampleFormControlTextarea1" rows="10"></textarea>
                 <div class="float-right">
-                    <button class="btn btn-primary mb-4" style="float: right;">Записать изменения</button>
+                    <a id="saveChanges" href=""> <button class="btn btn-primary mb-4" style="float: right;">Записать изменения</button></a>
                 </div>
 
 
