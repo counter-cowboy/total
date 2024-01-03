@@ -111,7 +111,9 @@ jQuery(document).ready(function () {
         let textValEvent = $("#exampleFormControlTextarea1").val();
         $("#saveChanges").attr(
           "href",
-          `http://localhost:5501/total/update.php?id=${globArray[i][0]}&datas=${globArray[i][1]}&events=${textValEvent}&person=${globArray[i][3]}&thing=${globArray[i][4]}&locat=${globArray[i][5]}`
+          `http://localhost:5501/total/update.php?id=${globArray[i][0]}&
+          datas=${globArray[i][1]}&events=${textValEvent}&person=${globArray[i][3]}
+          &thing=${globArray[i][4]}&locat=${globArray[i][5]}`
         );
       });
 
@@ -121,7 +123,9 @@ jQuery(document).ready(function () {
         let textValEvent = $("#exampleFormControlTextarea1").val();
         $("#saveChanges").attr(
           "href",
-          `http://localhost:5501/total/update.php?id=${globArray[i][0]}&datas=${globArray[i][1]}&events=${globArray[i][2]}&person=${textValEvent}&thing=${globArray[i][4]}&locat=${globArray[i][5]}`
+          `http://localhost:5501/total/update.php?id=${globArray[i][0]}&
+          datas=${globArray[i][1]}&events=${globArray[i][2]}&person=${textValEvent}&
+          thing=${globArray[i][4]}&locat=${globArray[i][5]}`
         );
       });
 
@@ -131,22 +135,25 @@ jQuery(document).ready(function () {
         let textValEvent = $("#exampleFormControlTextarea1").val();
         $("#saveChanges").attr(
           "href",
-          `http://localhost:5501/total/update.php?id=${globArray[i][0]}&datas=${globArray[i][1]}&events=${globArray[i][2]}&person=${globArray[i][3]}&thing=${textValEvent}&locat=${globArray[i][5]}`
+          `http://localhost:5501/total/update.php?id=${globArray[i][0]}&
+          datas=${globArray[i][1]}&events=${globArray[i][2]}&
+          person=${globArray[i][3]}&thing=${textValEvent}&locat=${globArray[i][5]}`
         );
       });
 
       $(`#locat-button${i}`).click(function (e) {
         e.preventDefault();
-        // $("#exampleFormControlTextarea1").attr("placeholder", globArray[i][5]);
-        // let textValEvent = $("#exampleFormControlTextarea1").val();
+
+        let textValEvent = $("#exampleFormControlTextarea1").text();
         $("#saveChanges").attr(
           "href",
           `http://localhost:5501/total/update.php?id=${globArray[i][0]}&datas=${
             globArray[i][1]
           }&events=${globArray[i][2]}&person=${globArray[i][3]}&thing=${
             globArray[i][4]
-          }&locat=${$("#exampleFormControlTextarea1").val()}`
+          }&locat=${$("#exampleFormControlTextarea1").text()}`
         );
+        $("#exampleFormControlTextarea1").text(globArray[i][5]);
       });
     }
   }

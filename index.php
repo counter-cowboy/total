@@ -89,7 +89,7 @@
                 </div>
                 <div class="text-center"><a href="#" id="addRow" class="my-2">Добавить событие</a></div>
 
-
+                <div id="form"></div>
                 <textarea class="form-control mt-5 mb-3" id="exampleFormControlTextarea1" rows="10"></textarea>
                 <div class="float-right">
                     <a id="saveChanges" href=""> <button class="btn btn-primary mb-4" style="float: right;">Записать
