@@ -22,15 +22,9 @@
             <a class="navbar-brand" href="#!">Вспомнить всё</a>
         </div>
     </nav>
-
     <div class="container mt-5">
         <div class="row">
-
-
-
             <div class="col-lg-3">
-
-
                 <div class="card mb-4">
                     <div class="card-header">Календарь</div>
                     <div class="card-body">
@@ -42,19 +36,18 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Begin test -->
                 <!-- <input type="text" id="datepicker"> -->
-                <input type="text" id="selectedDate">
-                <input type="text" id="selectedDate1">
-
-
+<!--                <input type="text" id="selectedDate">-->
+<!--                <input type="text" id="selectedDate1">-->
                 <!-- End test -->
 
                 <div class="card mb-4">
                     <div class="card-header">Поиск</div>
                     <div class="card-body">
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Введите поисковую фразу..."
+                            <input class="form-control" id="inputSearch" type="text" placeholder="Введите поисковую фразу..."
                                 aria-label="Введите поисковую фразу..." aria-describedby="button-search" />
                             <button class="btn btn-primary" id="button-search" type="button">Ок!</button>
                         </div>
@@ -63,9 +56,7 @@
                 <div>
                     <pre id='array'></pre>
                 </div>
-
             </div>
-
 
             <div class="col-lg-9">
 
@@ -97,18 +88,11 @@
             <div class="text-center"><a href="#" id="addRow" class="my-2">Добавить событие</a></div>
         </div>
     </div>
-
-
-
-
-
-
     <footer class="py-5 bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">&copy; TotalRecall2023</p>
         </div>
     </footer>
-
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.js"></script>
@@ -116,5 +100,4 @@
     <script>
     </script>
 </body>
-
 </html>

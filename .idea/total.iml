@@ -6,7 +6,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="@types/jquery" level="application" />
-    <orderEntry type="library" name="jQ" level="project" />
-    <orderEntry type="library" name="jqui" level="project" />
+    <orderEntry type="library" name="jqui" level="application" />
+    <orderEntry type="library" name="jQ" level="application" />
   </component>
 </module>
