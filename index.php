@@ -39,16 +39,17 @@
 
                 <!-- Begin test -->
                 <!-- <input type="text" id="datepicker"> -->
-<!--                <input type="text" id="selectedDate">-->
-<!--                <input type="text" id="selectedDate1">-->
+                <!--                <input type="text" id="selectedDate">-->
+                <!--                <input type="text" id="selectedDate1">-->
                 <!-- End test -->
 
                 <div class="card mb-4">
                     <div class="card-header">Поиск</div>
                     <div class="card-body">
                         <div class="input-group">
-                            <input class="form-control" id="inputSearch" type="text" placeholder="Введите поисковую фразу..."
-                                aria-label="Введите поисковую фразу..." aria-describedby="button-search" />
+                            <input class="form-control" id="inputSearch" type="text"
+                                placeholder="Введите поисковую фразу..." aria-label="Введите поисковую фразу..."
+                                aria-describedby="button-search" />
                             <button class="btn btn-primary" id="button-search" type="button">Ок!</button>
                         </div>
                     </div>
@@ -69,6 +70,9 @@
                         <div class="col border text-center">Персона</div>
                         <div class="col border text-center">Предмет</div>
                         <div class="col border text-center">Территория</div>
+                         <div class="col border text-center">Описание</div>
+                                <div class="col border text-center">Картинки</div>
+                                <div class="col border text-center">Книга</div>
                     </div> -->
 
 
@@ -100,4 +104,5 @@
     <script>
     </script>
 </body>
+
 </html>
