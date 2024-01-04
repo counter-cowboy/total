@@ -8,19 +8,17 @@
   <body>
     <div id="form">
       <form action="update.php" method="post">
-        <input type="hidden" name="id" id="" value="" />
-        <input type="hidden" name="datas" id="" value="" />
-        <textarea name="events" id="" cols="30" rows="10"></textarea>
-        <input type="hidden" name="person" value="" />
-        <input type="hidden" name="thing" value="" />
-        <input type="hidden" name="locat" id="" value="" />
+        <input type="hidden" name="id" id="id-form" value="" />
+        <input type="hidden" name="datas" id="datas-form" value="" />
+        <textarea name="events" id="formArea" cols="100" rows="10"></textarea>
+        <input type="hidden" name="person" id="person-form" value="" />
+        <input type="hidden" name="thing" id="thing-form" value="" />
+        <input type="hidden" name="locat" id="locat-form" value="" />
 
         <div class="float-right">
-          <a id="saveChanges" href="">
-            <button class="btn btn-primary mb-4" style="float: right">
-              Записать изменения
-            </button></a
-          >
+          <button class="btn btn-primary mb-4" style="float: right">
+            Записать изменения
+          </button>
         </div>
       </form>
     </div>
