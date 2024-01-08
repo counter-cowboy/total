@@ -13,6 +13,19 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <link href="css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/jquery-ui.css">
+    <style>
+        body{
+            background-color: lightgrey;
+        }
+        li.ui-menu-item {
+            font-size: 12px;
+            font-faminy: Verdana;
+        }
+        .ui-widget-content{
+            font-size: 12px;
+            font-faminy: Verdana;
+        }
+    </style>
 </head>
 
 <body>
@@ -48,8 +61,8 @@
                     <div class="card-body">
                         <div class="input-group">
                             <input class="form-control" id="inputSearch" type="text"
-                                placeholder="Введите поисковую фразу..." aria-label="Введите поисковую фразу..."
-                                aria-describedby="button-search" />
+                                placeholder="Что ищем?" aria-label="Введите поисковую фразу..."
+                                aria-describedby="button-search" /> &nbsp;&nbsp;
                             <button class="btn btn-primary" id="button-search" type="button">Ок!</button>
                         </div>
                     </div>
@@ -89,7 +102,7 @@
 
 
             </div>
-            <div class="text-center"><a href="#" id="addRow" class="my-2">Добавить событие</a></div>
+            <div class="text-center"><a class='btn btn-warning'  href="#" id="addRow" class="my-2">Добавить событие</a></div>
         </div>
     </div>
     <footer class="py-5 bg-dark">
