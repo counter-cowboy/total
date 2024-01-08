@@ -9,6 +9,7 @@ if (isset($_GET['getdate'] ))
 elseif (isset($_GET['term'] ))
 {
     $request= $_GET['term'];
+
     autoComplete($request, $connect);
 }
 elseif (isset($_GET['eventdate']))
@@ -21,20 +22,18 @@ elseif (isset($_GET['search']) )
     $request= $_GET['search'];
     search($request, $connect);
 }
-elseif (isset($_POST['id']))
+elseif (isset($_POST['id']) )
 {
-    $files = $_FILES['thumb'];
-    $post = [   $_POST["id"], $_POST["datas"],  $_POST["events"],
-                $_POST['person'], $_POST['thing'],  $_POST['locat'],
-                $_POST['book'], $_POST['thumb'], $_POST['img'] ];
+    $files = isset($_FILES['thumb']['name']) ? $_FILES['thumb'] : '';
+    $post = [ $_POST["id"], $_POST["datas"],$_POST["events"],
+              $_POST['person'],
+              $_POST['thing'],  $_POST['locat'], $_POST['book'] ];
 
     update($files, $post, $connect);
 }
-function update($files, $post, $connect)
-{
-    $img =  $post[8];
-    $thumb = $post[7];
 
+function update($files,$post, $connect)
+{
     if ($files)
     {
         $uploaddir = "assets/img/";
@@ -47,7 +46,7 @@ function update($files, $post, $connect)
         echo json_encode( $img) ;
         $typeok=true;
 
-        switch ($_FILES['thumb']['type'])
+        switch ($files['type'])
         {  // checking file-type
             case  "image/gif": $src = imagecreatefromgif($img); break;
             case  "image/jpeg": // same for progressive jpeg
@@ -65,9 +64,9 @@ function update($files, $post, $connect)
             $th = $h;
 
             if ($w > $h && $max < $w)
-            { $tw = $max;     $th = $h * $max / $w;  }
+                 { $tw = $max;     $th = $h * $max / $w;  }
             elseif ($h > $w && $max < $h)
-            { $th = $max;     $tw = $w * $max/$h; }
+                 { $th = $max;     $tw = $w * $max/$h; }
             elseif ($max< $w) $tw=$th=$max;
             //creating empty image $max*$max
             $tmp = imagecreatetruecolor($tw, $th);
@@ -78,6 +77,9 @@ function update($files, $post, $connect)
             imagedestroy($tmp);
         }
     }
+    else {   $img =  $post[9];
+        $thumb = $post[8];}
+
     $query="UPDATE `tot` SET `datas` = '$post[1]',
         `events` = '$post[2]', `person` = '$post[3]', 
         `thing` = '$post[4]', `locat` = '$post[5]',
@@ -101,7 +103,7 @@ function create($datass, $connect)
 {
 
     $query="INSERT INTO `tot` (`id`, `datas`, `events`, `person`, `thing`, `locat`, `book`, `thumb`, `img`)
-                    VALUES (NULL, '$datass', 'no future', 'no problem', 'no money', 'no where', 'no book', null, null)  ";
+                    VALUES (NULL, '$datass', 'no future', 'no problem', 'no money', 'no where', 'no book', 'no image', 'no picture')  ";
     $eventdate=mysqli_query($connect, $query );
 
     // test functional for server response in scripts.JS & handling it
