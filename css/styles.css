@@ -8314,6 +8314,16 @@ fieldset:disabled .btn {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 200px;
+}
+.image-container{
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+}
+.image-container img{
+  width: 100%;
+  height: 100%;
 }
 .text-center {
   text-align: center !important;

@@ -1,6 +1,6 @@
 <?php
 require_once 'connect.php';
-$request= $_GET['term'] ?? '';
+$request= $_GET['search'] ?? '';
 $search=mysqli_real_escape_string($connect, $request);
 
 $sql="SELECT * FROM `tot` WHERE `datas` LIKE '%$search%' OR `events` LIKE '%$search%' OR 

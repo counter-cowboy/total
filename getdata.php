@@ -1,7 +1,7 @@
 <?php  
 require_once 'connect.php';
 
-$userinput=$_GET['eventdate'];
+$userinput=$_GET['getdate'];
 
 $data=mysqli_real_escape_string($connect, $userinput );
 

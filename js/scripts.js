@@ -73,25 +73,25 @@ jQuery(document).ready(
                     $("#selectedDate").val(eventDate);
                     $("#dataHolder").text(eventDate);
 
+                    //setting null-html to #form
+                     $("#form").html('');
+
                     $.ajax({
                       type: "GET",
                       datatype: "json",
-                      url: "getdata.php",
-                      data: { eventdate: eventDate },
+                      url: "handler.php",//"getdata.php",
+                      data: { getdate: eventDate },
                       success: function (response) {
                         response = JSON.parse(response);
                         globArray = response;
-                        console.log(response);
-                        $("#selectedDate1").val(response);
-                        //response.forEach((o) => $("#array").html(o));
+                        console.log(response + ' _respose');
+
                           allGlobalData=globArray;
                         callingArray(globArray);
                       },
                     });
             },
           });
-
-
 
           // function callingArray(globArray) {
           //             //rendering table-header
@@ -197,12 +197,15 @@ jQuery(document).ready(
 
           jQuery("#addRow").on('click',function ()
           {
+              // setting NULL-html to #form
+              $("#form").html("");
             // sending AJAX-request for creating new Event
                   $.ajax({
                     type: "GET",
-                    url: "create.php",
+                    url: 'handler.php',//"create.php",
                     data: { eventdate: globalData },
                     success: function (response) {
+                        // test functional for server response && handling it
                       // response = JSON.parse(response);
                       // console.log(response);
                       // $("#selectedDate1").val(response);
@@ -213,8 +216,8 @@ jQuery(document).ready(
                   {
                       type: "GET",
                       datatype: "json",
-                      url: "getdata.php",
-                      data: { eventdate: globalData },
+                      url: 'handler.php',   //"getdata.php",
+                      data: { getdate: globalData },
                       success: function (response) {
                           response = JSON.parse(response);
                           let globArray1 = response;
@@ -222,9 +225,10 @@ jQuery(document).ready(
                   },
               });
           });
+        //
+        //   let eventdate = $("selectedDate").val();
+        // const searchArray=['event', 'evegt', 'somthng', 'something'];
 
-          let eventdate = $("selectedDate").val();
-        const searchArray=['event', 'evegt', 'somthng', 'something'];
         // SEARCH-form handler
           $("#button-search").on('click', function ( )
           {
@@ -233,18 +237,19 @@ jQuery(document).ready(
                   {
                       type: "GET",
                       datatype: "json",
-                      url: "search.php",
-                      data: { term: inputSearch },
+                      url: "handler.php",//"search.php",
+                      data: { search: inputSearch },
                       success: function (response) {
                           let searchArray = JSON.parse(response);
                           callingArrayWithDate(searchArray);
+                          console.log(searchArray +"_search");
                       },
                   });
           });
 
         // AutoComplete function
           $("#inputSearch").autocomplete({
-              source: "autocomplete.php",
+              source: "handler.php", //"autocomplete.php",
               minLength: 2,
               delay: 500
           });
@@ -256,28 +261,29 @@ let allGlobalDate;
 
 // END of $(document).ready   WOOOW  (!!!!!!!!!!!!!!=======================!!!!!!!!!!!!!!!1
 
-// ajaxForm is to handle Send-button onClick. It writes new data te DB
+// ajaxForm is to handle Send-button onClick. It writes new data to DB,
 // then clears page and calling 'callingArray'-function to render events-table with newly data
 function ajaxForm(form_id)
 {
-   // console.log('Global data' + allGlobalData);
-    let form = $('#' + form_id);
-    // form.preventDefault(); // avoid to execute the actual submit of the form.
-    let actionUrl = form.attr('action');
+    let formDocument= document.getElementById('formAct');
+    let form = new FormData(formDocument);
     $.ajax({
         type: "POST",
-        async: true,
-        url: actionUrl,
-        data: form.serialize() , // serializes the form's elements.
-        success: function(data)   {    }
+        url:'handler.php', //"update.php",
+        processData: false,
+        cache: false,
+        contentType: false,
+        data: form ,
+        success: function( data ){ console.log( JSON.parse( data) );}
     });
 
     $("#form").html('');
+
     $.ajax({
         type: "GET",
         datatype: "json",
-        url: "getdata.php",
-        data: { eventdate: allGlobalDate},
+        url: 'handler.php', //"getdata.php",
+        data: { getdate: allGlobalDate},
         success: function (response) {
             response = JSON.parse(response);
             let globArray1 = response;
@@ -289,8 +295,10 @@ function ajaxForm(form_id)
 
 // rendering table with events, person etc
 function callingArray(globArray) {
+
     //rendering table-header
-    $("#totalHolder").html('<div class="row">\n' +
+    $("#totalHolder").html('' +
+        '<div class="row">\n' +
         '                        <div hidden class="col border text-center">ID</div>\n' +
         '                        <div hidden class="col border text-center">Datas</div>\n' +
         '                        <div class="col border text-center">Событие</div>\n' +
@@ -299,7 +307,7 @@ function callingArray(globArray) {
         '                        <div class="col border text-center">Территория</div>\n' +
         '                        <div class="col border text-center">Книга</div>' +
         '                        <div class="col border text-center">Превью</div>' +
-        '                        <div hidden class="col border text-center">Картинка</div>       ' +
+        '                        <div hidden class="col border text-center">Картинка</div>' +
         '  </div>');
     // starting the for-loop for rendering the data-rows & the buttons
     for (let i = 0; i < globArray.length; i++)
@@ -310,7 +318,7 @@ function callingArray(globArray) {
                                 <div id='id${i}' hidden id='clip' class="col border  text-center">0</div>
                                 <div id='datas${i}' hidden  id='clip' class="col border  text-center">1</div>
                                 <div id='events${i}'  id='clip'  class="col border  text-center">${globArray[i][2]}</div>
-                                <div id='person${i}'  id='clip' class="col border  text-center">${globArray[i][3]}</div>
+                                <div id='person${i}'  id='clip' class="col border  text-center">${ globArray[i][3].substring(0,14) }</div>
                                 <div id='thing${i}' id='clip'  class="col border text-center">${globArray[i][4]}</div>
                                 <div id='locat${i}'  id='clip' class="col border  text-center">${globArray[i][5]}</div>
                                 <div id='book${i}' id='clip'  class="col border  text-center">${globArray[i][6]}</div>
@@ -333,7 +341,7 @@ function callingArray(globArray) {
         // adding event-listeners for all buttons. Each button must call its own form for changing data (event, person etc)
         $(`#events-button${i}`).on('click',function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
+            $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
                             <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                             <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />        
                             <textarea name="events" id="formArea" cols="100" rows="10">${globArray[i][2]}</textarea>        
@@ -345,14 +353,14 @@ function callingArray(globArray) {
                             <input type="hidden" name="img" id="img-form" value="${globArray[i][8]}" />        
                             <div class="float-right">                  
                                        <a class="btn btn-secondary mb-4 rt5" style="float: right" 
-                                         href="#" onclick="ajaxForm('formAct')">Send</a>                  
+                                         href="#" onclick="ajaxForm('formAct')">Send event</a>                  
                                   </div>
                           </form>`);
         });
 
         $(`#person-button${i}`).click(function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
+            $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
                             <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                             <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />
                             <input type="hidden" name="events" id="person-form" value="${globArray[i][2]}" />
@@ -364,14 +372,14 @@ function callingArray(globArray) {
                             <input type="hidden" name="img" id="img-form" value="${globArray[i][8]}" /> 
                             <div class="float-right">                  
                                        <a class="btn btn-danger mb-4 rt5" style="float: right" 
-                                         href="#" onclick="ajaxForm('formAct')">Send</a>                  
+                                         href="#" onclick="ajaxForm('formAct')">Send person</a>                  
                                   </div>
                           </form>`);
         });
 
         $(`#thing-button${i}`).on('click',function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this);" action="update.php" method="post">
+            $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this);" action="update.php" method="post">
                             <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                             <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />
                             <input type="hidden" name="events" id="person-form" value="${globArray[i][2]}" />
@@ -383,14 +391,14 @@ function callingArray(globArray) {
                             <input type="hidden" name="img" id="img-form" value="${globArray[i][8]}" />    
                             <div class="float-right">                  
                                        <a class="btn btn-primary mb-4 rt5" style="float: right" 
-                                         href="#" onclick="ajaxForm('formAct')">Send</a>                  
+                                         href="#" onclick="ajaxForm('formAct')">Send some thing</a>                  
                                   </div>
                           </form>`);
         });
 
         $(`#locat-button${i}`).on('click',function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
+            $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
                                   <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                                   <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />
                                   <input type="hidden" name="events" id="person-form" value="${globArray[i][2]}" />
@@ -402,45 +410,47 @@ function callingArray(globArray) {
                                   <input type="hidden" name="img" id="img-form" value="${globArray[i][8]}" /> 
                                   <div class="float-right">                  
                                        <a class="btn btn-primary mb-4 rt5" style="float: right" 
-                                         href="#" onclick="ajaxForm('formAct')">Send</a>                  
+                                         href="#" onclick="ajaxForm('formAct')">Send location</a>                  
                                   </div>
                                 </form>`);
         });
 
         $(`#book-button${i}`).on('click',function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
+            $("#form").html(`<form id="formAct" enctype="multipart/form-data" onsubmit="return ajaxForm(this)" action="update.php" method="post">
                                   <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                                   <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />
-                                  <input type="hidden" name="events" id="person-form" value="${globArray[i][2]}" />
-                                  <input type="hidden" name="person" id="thing-form" value="${globArray[i][3]}" />
-                                  <input type="hidden" name="thing" id="locat-form" value="${globArray[i][4]}" />  
-                                   <input type="hidden" name="locat" id="book-form" value="${globArray[i][5]}" /> 
+                                  <input type="hidden" name="events" id="events-form" value="${globArray[i][2]}" />
+                                  <input type="hidden" name="person" id="person-form" value="${globArray[i][3]}" />
+                                  <input type="hidden" name="thing" id="thing-form" value="${globArray[i][4]}" />  
+                                   <input type="hidden" name="locat" id="locat-form" value="${globArray[i][5]}" /> 
                                   <textarea id="formArea" name="book"  cols="100" rows="10">${globArray[i][6]}</textarea>
                                   <input type="hidden" name="thumb" id="thumb-form" value="${globArray[i][7]}" />  
                                   <input type="hidden" name="img" id="img-form" value="${globArray[i][8]}" /> 
                                   <div class="float-right">                  
                                        <a class="btn btn-primary mb-4 rt5" style="float: right" 
-                                         href="#" onclick="ajaxForm('formAct')">Send</a>                  
+                                         href="#" onclick="ajaxForm('formAct')">Send book</a>                  
                                   </div>
                                 </form>`);
         });
 
         $(`#thumb-button${i}`).on('click',function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
+            $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
                                   <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                                   <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />
                                   <input type="hidden" name="events" id="person-form" value="${globArray[i][2]}" />
                                   <input type="hidden" name="person" id="thing-form" value="${globArray[i][3]}" />
                                   <input type="hidden" name="thing" id="locat-form" value="${globArray[i][4]}" />  
                                   <input type="hidden" name="locat"  cols="100" rows="10" value="${globArray[i][5]}"/>
-                                  <input type="hidden" name="book" id="book-form" value="${globArray[i][6]}" />  
-                                  <img style="height: 500px; width: 200px;" src="${globArray[i][8]}"><br>
-                                   <input type="file" name="img" id="thumb-form" placeholder="Change file" " />                           
+                                  <input type="hidden" name="book" id="book-form" value="${globArray[i][6]}" />                                    
+                               
+                                 <img width="600" src='${globArray[i][8]}' "><br>   
+                                 You can change your <s>life</s> file <br>                             
+                                   <input type="file" name="thumb" id="thumb-form" placeholder="Change file"/>                           
                                   <input type="hidden" name="img" id="img-form" value="${globArray[i][8]}" /> 
-                                  <div class="float-right">                  
-                                       <a class="btn btn-danger mb-4 rt5" style="float: right" 
+                                  <div class="float-right  "> 
+                                       <a class="btn btn-danger mb-4 rt5" style="float: center" 
                                          href="#" onclick="ajaxForm('formAct')">Send picture</a>                  
                                   </div>
                                 </form>`);
@@ -448,7 +458,7 @@ function callingArray(globArray) {
     }
 }
 
-//renders the same + Date-column (it is used for Search-form)
+//renders the same + Date-column (it is used for Search-form, helps user to know the date of search results)
 function callingArrayWithDate(globArray) {
     //rendering table-header
     $("#totalHolder").html('<div class="row">\n' +
@@ -493,7 +503,7 @@ function callingArrayWithDate(globArray) {
         // adding event-listeners for all buttons. Each button must call its own form for changing data (event, person etc)
         $(`#events-button${i}`).on('click',function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
+            $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
                             <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                             <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />        
                             <textarea name="events" id="formArea" cols="100" rows="10">${globArray[i][2]}</textarea>        
@@ -502,14 +512,14 @@ function callingArrayWithDate(globArray) {
                             <input type="hidden" name="locat" id="locat-form" value="${globArray[i][5]}" />        
                             <div class="float-right">                  
                                        <a class="btn btn-secondary mb-4 rt5" style="float: right" 
-                                         href="#" onclick="ajaxForm('formAct')">Send</a>                  
+                                         href="#" onclick="ajaxForm('formAct')">Send event</a>                  
                                   </div>
                           </form>`);
         });
 
         $(`#person-button${i}`).click(function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
+            $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
                             <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                             <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />
                             <input type="hidden" name="events" id="person-form" value="${globArray[i][2]}" />
@@ -518,14 +528,14 @@ function callingArrayWithDate(globArray) {
                             <input type="hidden" name="locat" id="locat-form" value="${globArray[i][5]}" />        
                             <div class="float-right">                  
                                        <a class="btn btn-danger mb-4 rt5" style="float: right" 
-                                         href="#" onclick="ajaxForm('formAct')">Send</a>                  
+                                         href="#" onclick="ajaxForm('formAct')">Send person</a>                  
                                   </div>
                           </form>`);
         });
 
         $(`#thing-button${i}`).on('click',function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this);" action="update.php" method="post">
+            $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this);" action="update.php" method="post">
                             <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                             <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />
                             <input type="hidden" name="events" id="person-form" value="${globArray[i][2]}" />
@@ -534,14 +544,14 @@ function callingArrayWithDate(globArray) {
                             <input type="hidden" name="locat" id="locat-form" value="${globArray[i][5]}" />        
                             <div class="float-right">                  
                                        <a class="btn btn-primary mb-4 rt5" style="float: right" 
-                                         href="#" onclick="ajaxForm('formAct')">Send</a>                  
+                                         href="#" onclick="ajaxForm('formAct')">Send something</a>                  
                                   </div>
                           </form>`);
         });
 
         $(`#locat-button${i}`).on('click',function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
+            $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
                                   <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                                   <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />
                                   <input type="hidden" name="events" id="person-form" value="${globArray[i][2]}" />
@@ -550,13 +560,13 @@ function callingArrayWithDate(globArray) {
                                   <textarea id="formArea" name="locat"  cols="100" rows="10">${globArray[i][5]}</textarea>
                                   <div class="float-right">                  
                                        <a class="btn btn-primary mb-4 rt5" style="float: right" 
-                                         href="#" onclick="ajaxForm('formAct')">Send</a>                  
+                                         href="#" onclick="ajaxForm('formAct')">Send location</a>                  
                                   </div>
                                 </form>`);
         });
         $(`#book-button${i}`).on('click',function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
+            $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
                                   <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                                   <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />
                                   <input type="hidden" name="events" id="person-form" value="${globArray[i][2]}" />
@@ -569,13 +579,13 @@ function callingArrayWithDate(globArray) {
                                   
                                   <div class="float-right">                  
                                        <a class="btn btn-primary mb-4 rt5" style="float: right" 
-                                         href="#" onclick="ajaxForm('formAct')">Send</a>                  
+                                         href="#" onclick="ajaxForm('formAct')">Send book</a>                  
                                   </div>
                                 </form>`);
         });
         $(`#thumb-button${i}`).on('click',function (e) {
             e.preventDefault();
-            $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
+            $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
                                  <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
                                   <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />
                                   <input type="hidden" name="events" id="person-form" value="${globArray[i][2]}" />
@@ -583,18 +593,19 @@ function callingArrayWithDate(globArray) {
                                   <input type="hidden" name="thing" id="locat-form" value="${globArray[i][4]}" />  
                                   <input type="hidden" name="locat"  cols="100" rows="10" value="${globArray[i][5]}"/>
                                   <input type="hidden" name="book" id="book-form" value="${globArray[i][6]}" />  
-                                  <img style="height: 500px; width: 200px;" src="${globArray[i][8]}"><br>
+                                  <img style=" width: 600px;" src="${globArray[i][8]}"><br>
                                    <input type="file" name="img" id="thumb-form" placeholder="Change file" " />                           
                                   <input type="hidden" name="img" id="img-form" value="${globArray[i][8]}" /> 
                                   <div class="float-right">                  
                                        <a class="btn btn-primary mb-4 rt5" style="float: right" 
-                                         href="#" onclick="ajaxForm('formAct')">Send</a>                  
+                                         href="#" onclick="ajaxForm('formAct')">Send image</a>                  
                                   </div>
                                 </form>`);
         });
+        // на  всякий случай, но наверняка никогда не пригодится.
         // $(`#img-button${i}`).on('click',function (e) {
         //     e.preventDefault();
-        //     $("#form").html(`<form id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
+        //     $("#form").html(`<form enctype="multipart/form-data" id="formAct" onsubmit="return ajaxForm(this)" action="update.php" method="post">
         //                           <input type="hidden" name="id" id="id-form" value="${globArray[i][0]}" />
         //                           <input type="hidden" name="datas" id="datas-form" value="${globArray[i][1]}" />
         //                           <input type="hidden" name="events" id="person-form" value="${globArray[i][2]}" />
@@ -611,6 +622,9 @@ function callingArrayWithDate(globArray) {
     }
 }
 
-// TODO
+ //    TODO
 //1 - дописать рендер с учётом новых столбцов стр 291, дописать рендер кнопок
 //2 - переписать рендер стр 394 - страница поиска
+// it is done
+// handler.php is done
+// it's up to remove all handlers to index.php
