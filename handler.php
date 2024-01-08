@@ -9,6 +9,7 @@ if (isset($_GET['getdate'] ))
 elseif (isset($_GET['term'] ))
 {
     $request= $_GET['term'];
+
     autoComplete($request, $connect);
 }
 elseif (isset($_GET['eventdate']))
