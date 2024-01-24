@@ -3,7 +3,7 @@
 $host="localhost";
 $dbname="total";
 $user="user";
-$password="poiuy";
+$password="user";
 
 $connect=mysqli_connect($host, $user, $password, $dbname);
 
